@@ -3,3 +3,24 @@ name: todoapp
 services:
   command-db:
     build: ../command-db
+    volumes:
+      - command-db-data:/var/lib/postgresql
+  event-db:
+    build: ../event-db
+    volumes:
+      - event-db-data:/var/lib/postgresql
+
+
+volumes:
+  command-db-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./command-db
+  event-db-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./event-db
