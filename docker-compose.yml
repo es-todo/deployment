@@ -1,5 +1,6 @@
 
 name: todoapp
+
 services:
   command-db:
     build: ../command-db
@@ -7,9 +8,18 @@ services:
       - command-db-data:/var/lib/postgresql
   event-db:
     build: ../event-db
+    ports:
+      - 3000:3000
     volumes:
       - event-db-data:/var/lib/postgresql
-
+  admin:
+    build: ../admin
+    ports:
+      - 4000:4000
+    volumes:
+      - ../admin/src:/app/src:ro
+      - ../admin/public:/app/public:ro
+      - ../admin/index.html:/app/index.html:ro
 
 volumes:
   command-db-data:
