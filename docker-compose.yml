@@ -14,12 +14,16 @@ services:
       - event-db-data:/var/lib/postgresql
   admin:
     build: ../admin
-    ports:
-      - 4000:4000
     volumes:
       - ../admin/src:/app/src:ro
       - ../admin/public:/app/public:ro
       - ../admin/index.html:/app/index.html:ro
+  admin-nginx:
+    image: nginx
+    volumes:
+      - ./admin-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - 4000:80
 
 volumes:
   command-db-data:
