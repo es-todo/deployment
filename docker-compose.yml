@@ -26,18 +26,35 @@ services:
       - 3002:3000
     volumes:
       - ../command-processor/src:/app/src:ro
+  object-broker:
+    build: ../object-broker
+    volumes:
+      - ../object-broker/src:/app/src:ro
   admin:
     build: ../admin
     volumes:
       - ../admin/src:/app/src:ro
       - ../admin/public:/app/public:ro
       - ../admin/index.html:/app/index.html:ro
+  back-office:
+    build: ../back-office
+    volumes:
+      - ../back-office/src:/app/src:ro
+      - ../back-office/public:/app/public:ro
+      - ../back-office/index.html:/app/index.html:ro
   admin-nginx:
     image: nginx
     volumes:
       - ./admin-nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
       - 4000:80
+  back-office-nginx:
+    image: nginx
+    volumes:
+      - ./back-office-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - 8080:80
+
 
 volumes:
   command-db-data:
