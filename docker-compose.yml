@@ -13,6 +13,19 @@ services:
     volumes:
       - ../event-db/src:/app/src:ro
       - event-db-data:/var/lib/postgresql
+  object-reducer:
+    build: ../object-reducer
+    ports:
+      - 3001:3000
+    volumes:
+      - ../object-reducer/src:/app/src:ro
+      - object-reducer-data:/var/lib/postgresql
+  command-processor:
+    build: ../command-processor
+    ports:
+      - 3002:3000
+    volumes:
+      - ../command-processor/src:/app/src:ro
   admin:
     build: ../admin
     volumes:
@@ -39,3 +52,9 @@ volumes:
       o: bind
       type: none
       device: ./event-db
+  object-reducer-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./object-reducer
