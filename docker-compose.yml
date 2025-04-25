@@ -2,10 +2,6 @@
 name: todoapp
 
 services:
-  command-db:
-    build: ../command-db
-    volumes:
-      - command-db-data:/var/lib/postgresql
   event-db:
     build: ../event-db
     ports:
@@ -57,12 +53,6 @@ services:
 
 
 volumes:
-  command-db-data:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ./command-db
   event-db-data:
     driver: local
     driver_opts:
@@ -74,4 +64,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ./object-reducer
+      device: ./object-reducer-db
