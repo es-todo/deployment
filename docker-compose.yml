@@ -28,6 +28,10 @@ services:
     volumes:
       - ./private.pem:/app/private.pem:ro
       - ../object-broker/src:/app/src:ro
+  elastic-indexer:
+    build: ../elastic-indexer
+    volumes:
+      - ../elastic-indexer/src:/app/src:ro
   admin:
     build: ../admin
     volumes:
