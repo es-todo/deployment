@@ -32,6 +32,9 @@ services:
     build: ../elastic-indexer
     volumes:
       - ../elastic-indexer/src:/app/src:ro
+      - elastic-indexer-data:/mnt
+      # environment:
+      #   - cluster.routing.allocation.disk.threshold_enabled=false
   admin:
     build: ../admin
     volumes:
@@ -71,3 +74,9 @@ volumes:
       o: bind
       type: none
       device: ./object-reducer-db
+  elastic-indexer-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./elastic-indexer-data
