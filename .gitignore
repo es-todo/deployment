@@ -1,4 +1,6 @@
 /event-db
 /object-reducer-db
 /elastic-indexer-data
+/wordpress-data
+/wordpress-db-data
 /*.pem
