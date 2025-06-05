@@ -20,6 +20,8 @@ services:
     build: ../command-processor
     ports:
       - 3002:3000
+    environment:
+      - EMAIL_HOST_NAME=localhost
     volumes:
       - ./public.pem:/app/public.pem:ro
       - ../command-processor/src:/app/src:ro
@@ -58,29 +60,7 @@ services:
     volumes:
       - ./back-office-nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - 8080:80
-  wordpress:
-    image: wordpress
-    restart: always
-    ports:
-      - 8081:80
-    environment:
-      WORDPRESS_DB_HOST: wordpress-db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
-    volumes:
-      - wordpress-data:/var/www/html
-  wordpress-db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-    volumes:
-      - wordpress-db-data:/var/lib/mysql
+      - 80:80
 
 volumes:
   event-db-data:
@@ -101,15 +81,3 @@ volumes:
       o: bind
       type: none
       device: ./elastic-indexer-data
-  wordpress-db-data:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ./wordpress-db-data
-  wordpress-data:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ./wordpress-data
