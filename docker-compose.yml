@@ -37,6 +37,15 @@ services:
       - elastic-indexer-data:/mnt
       # environment:
       #   - cluster.routing.allocation.disk.threshold_enabled=false
+  automation:
+    build: ../automation
+    volumes:
+      - ../automation/src:/app/src:ro
+      - ./private.pem:/app/private.pem:ro
+    environment:
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - EMAIL_FROM=${EMAIL_FROM}
+      - AUTOMATION_USER_ID=${AUTOMATION_USER_ID}
   admin:
     build: ../admin
     volumes:

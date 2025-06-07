@@ -4,3 +4,4 @@
 /wordpress-data
 /wordpress-db-data
 /*.pem
+/.env
