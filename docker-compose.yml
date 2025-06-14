@@ -42,6 +42,8 @@ services:
     volumes:
       - ../automation/src:/app/src:ro
       - ./private.pem:/app/private.pem:ro
+    ports:
+      - 3004:3004
     environment:
       - RESEND_API_KEY=${RESEND_API_KEY}
       - EMAIL_FROM=${EMAIL_FROM}
@@ -54,16 +56,18 @@ services:
       - ../admin/index.html:/app/index.html:ro
   back-office:
     build: ../back-office
+    environment:
+      - DEVELOPMENT=1
     volumes:
-      - ../back-office/src:/app/src:ro
-      - ../back-office/public:/app/public:ro
-      - ../back-office/index.html:/app/index.html:ro
+      - ../back-office/packages/spa/src:/app/packages/spa/src:ro
+      - ../back-office/packages/spa/public:/app/packages/spa/public:ro
+      - ../back-office/packages/spa/index.html:/app/packages/spa/index.html:ro
   admin-nginx:
     image: nginx
     volumes:
       - ./admin-nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - 4000:80
+      - 4001:80
   back-office-nginx:
     image: nginx
     volumes:
