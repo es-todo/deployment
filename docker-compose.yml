@@ -54,6 +54,11 @@ services:
       - ../admin/src:/app/src:ro
       - ../admin/public:/app/public:ro
       - ../admin/index.html:/app/index.html:ro
+  media:
+    build: ../media
+    volumes:
+      - ../media/src:/app/src:ro
+      - media-data:/var/lib/postgresql
   back-office:
     build: ../back-office
     environment:
@@ -94,3 +99,9 @@ volumes:
       o: bind
       type: none
       device: ./elastic-indexer-data
+  media-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./media-data
